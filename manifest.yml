@@ -1,0 +1,10 @@
+applications:
+- name: spring-petclinic
+  path: .
+  memory: 512M
+  instances: 1
+  buildpack: java_buildpack       # Paketo/Cloud Foundry JVM buildpack
+  env:
+    SPRING_PROFILES_ACTIVE: cloud
+  routes:
+    - route: spring-petclinic.apps.example.io
