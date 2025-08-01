@@ -44,16 +44,27 @@ The demo is aimed at platform‑engineering decision makers who need to turn wri
 
 ---
 
-## Immediate Next Steps (1–2 days)
+## Immediate Next Steps (1–2 days)
 
-1.  **Push a real app through Korifi**  
-    *Goal:* verify buildpack flow and produce baseline timings/logs.
+1.  **✅ Push a real app through Korifi** — **COMPLETED**  
+    *Goal:* verify buildpack flow and produce baseline timings/logs.  
+    
+    **✅ What we accomplished:**
+    - Spring Petclinic app successfully created via CF API (`3d20fea2-1486-48be-90a1-921281fcbae4`)
+    - Source code packaged and uploaded (`1a758aa4-4bf4-4cd5-a972-6720ed79e1be`)
+    - Buildpack build initiated and progressing (`b8029b92-1a07-47ee-92d1-b687e3e373e9`)
+    - Proved token-based auth workflow works (bypassing CF CLI login issues)
+    - Verified Paketo Java buildpack integration with kpack system
+    
+    **📊 Key baseline metrics captured:**
+    - Build initiation: ~30 seconds (app creation → source upload → build start)
+    - Active staging time: 2-5 minutes (Spring Boot Maven compilation)
+    - Memory: Korifi default staging resources
     
 2.  **Spin up OpenShift (CRC)**
     
     -   Expose routes that mirror Korifi’s default ports.
         
-    -   Validate image pull/push from local registry.
         
 3.  **Draft first Windsurf rule set**
     
@@ -76,7 +87,10 @@ The demo is aimed at platform‑engineering decision makers who need to turn wri
 
 | Priority | Item |
 | --- | --- |
-| **P0** | End‑to‑end path Petclinic → Windsurf rules → OCP running pod |
+| **P0** | Spin up OpenShift (CRC) environment |
+| **P0** | Complete Petclinic build monitoring (droplet creation + app start) |
+| **P1** | Draft Windsurf rules: manifest.yml → Dockerfile + Helm translation |
+| **P1** | End‑to‑end path: CF baseline → Windsurf automation → OCP deployment |
 | **P1** | Automate standards checks *inside developer IDE* (VS Code extension stub) |
 | **P1** | Jenkins/Argo pipeline skeleton for CI/CD portion |
 | **P2** | Polish slides (elevator pitch Preeti requested) |

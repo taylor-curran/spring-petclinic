@@ -1,0 +1,10 @@
+{
+  "name": "spring-petclinic",
+  "lifecycle": { 
+    "type": "buildpack", 
+    "data": { "stack": "paketo-buildpacks-stacks-jammy" } 
+  },
+  "relationships": { 
+    "space": { "data": { "guid": "dev" } } 
+  }
+}
