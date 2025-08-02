@@ -1,5 +1,23 @@
 # CF to OpenShift Migration Demo Progress
 
+## 🎭 Demo Simulation Approach
+
+**For the Customer**: This demo simulates a **Cloud Foundry TAS → Red Hat OpenShift** migration in a realistic way, but uses simplified technologies for demonstration purposes:
+
+### **Production Reality**
+- **Source**: Cloud Foundry TAS (Tanzu Application Service)
+- **Target**: Red Hat OpenShift cluster
+- **Scale**: Enterprise production workloads
+
+### **Demo Environment** 
+- **Source**: OSS Cloud Foundry via **Korifi on Kind** (simulates TAS behavior)
+- **Target**: **Kind cluster + NGINX Ingress** (simulates OpenShift functionality)
+- **Why**: Avoids licensing complexity while demonstrating identical migration patterns
+
+**Key Point**: The migration logic, automation, and generated artifacts are **identical** to what you'd use in production. Only the underlying infrastructure is simplified for demo purposes.
+
+---
+
 ## Demo Objective
 
 Demonstrate automated migration of Java/Spring workloads from **Cloud Foundry** to **Red Hat OpenShift** using Windsurf AI-powered workflows that:
@@ -13,96 +31,57 @@ Demonstrate automated migration of Java/Spring workloads from **Cloud Foundry** 
 
 ---
 
-## File Organization Strategy
+## Current Implementation Status
 
-```
-├── korifi-setup-files/
-│   └── install-korifi-kind.yaml (existing - Korifi on Kind setup)
-├── cf-korifi/ 
-│   └── petclinic-app.json, CF API workflows (existing - working baseline)
-├── cf-traditional/ 
-│   └── manifest.yml, .cfignore, service bindings, buildpack configs
-├── cf-traditional-setup-files/ 
-│   └── TBD - Research if PCF Dev/cf-deployment can run locally
-├── openshift-setup/ 
-│   └── OKD/CRC installation, image registry, ingress configuration
-└── openshift-deployment-migration-target/ 
-    └── Helm charts, OpenShift templates, route definitions, RBAC
-```
+### ✅ **Infrastructure Complete**
+- [x] **CF Baseline**: Korifi v0.15.1 running Spring Petclinic with CF API
+- [x] **OpenShift Target**: Kind cluster + NGINX Ingress (OpenShift-compatible)
+- [x] **File Organization**: Clean structure for demo artifacts
+- [x] **Demo Setup**: `openshift-setup.md` with infrastructure commands
 
----
+### 🎯 **Core Demo Workflow** (Phase 1-3)
 
-## Action Items
+#### **1. Build Migration Workflow**
+- [x] **Source**: CF configuration analysis (`cf-korifi/petclinic-app.json`)
+- [ ] **Migration Logic**: CF config → Kubernetes resources mapping
+- [ ] **Generation**: Auto-create Helm charts in `migration-target/`
+- [ ] **Deployment**: `helm install` → Running OpenShift app
 
-### Phase 1: Traditional CF Artifact Collection ⏳
-- [ ] Research local PCF deployment options (PCF Dev, cf-deployment on BOSH-lite)
-- [ ] **Decision Point**: Full PCF environment vs. configuration-only demonstration
-- [ ] Create representative CF application manifest with service bindings
-- [ ] Document typical CF service broker integrations (MySQL, Redis, etc.)
-- [ ] Generate `.cfignore` and environment-specific variable files
+#### **2. Build Standards Framework**
+- [ ] **Standards Definition**: Resource limits, labels, security contexts
+- [ ] **Policy Files**: Validation rules for enterprise compliance
+- [ ] **Validation Engine**: Check generated resources against standards
 
-### Phase 2: Korifi Baseline (✅ Complete)
-- [x] Korifi v0.15.1 deployed on Kind with working CF API
-- [x] Spring Petclinic successfully staged via CF buildpack workflow
-- [x] Token-based authentication bypassing CF CLI OAuth limitations
-- [x] Baseline deployment metrics captured
+#### **3. Integrate Standards into Workflow**
+- [ ] **Workflow Enhancement**: Migration process applies standards automatically
+- [ ] **Compliance Validation**: Auto-check generated artifacts
+- [ ] **Error Prevention**: Standards violations block deployment
 
-### Phase 3: OpenShift Target Environment 🔄
-- [ ] Deploy OKD (Community OpenShift) on local Kind cluster
-- [ ] Configure OpenShift image registry and router
-- [ ] Set up Helm 3 and validate chart deployment workflows
-- [ ] Establish OpenShift project (namespace) structure
+### 🚀 **Future Expansion** (Phase 4-5)
 
-### Phase 4: Migration Automation Logic 📋
-- [ ] **Manifest Analysis**: Parse CF manifest.yml → extract app metadata, services, routes
-- [ ] **Buildpack Translation**: Map CF buildpacks to OpenShift S2I builders or Dockerfile strategies  
-- [ ] **Service Binding Migration**: CF VCAP_SERVICES → OpenShift Service Binding Operator
-- [ ] **Helm Chart Generation**: Create OpenShift-native Deployment, Service, Route resources
-- [ ] **Standards Validation**: Implement policy checks (resource limits, security contexts, labels)
+#### **4. Devin Integration** (Outside this repo)
+- [ ] **Standards Application**: Use Devin to apply standards across multiple projects
+- [ ] **Policy Enforcement**: Automated compliance at scale
 
-### Phase 5: Demo Orchestration 🎬
-- [ ] Record end-to-end migration workflow screencast
-- [ ] Create "before/after" comparison metrics (deployment time, configuration complexity)
-- [ ] Package demo as portable presentation for customer meetings
-- [ ] Document troubleshooting scenarios and error handling
-
----
-
-## Open Questions
-
-### **Critical Path Decision**: Traditional CF Runtime
-**Question**: Can we run traditional Pivotal Cloud Foundry locally without significant infrastructure investment?
-
-**Options**:
-- **PCF Dev** (deprecated but might work for demo purposes)  
-- **cf-deployment** with BOSH-lite (complex setup, resource intensive)
-- **Configuration-only** approach (realistic CF manifests without runtime)
-
-**Recommendation Needed**: Research local PCF options before defaulting to config-only approach.
-
-### **Research Validation**: Traditional CF Infrastructure Patterns
-**Question**: What do real-world traditional CF infrastructure config files actually look like?
-
-**Validation Areas**:
-- **BOSH deployment manifests** - How are CF foundations typically configured?
-- **Service broker integrations** - Standard patterns for MySQL, Redis, RabbitMQ bindings
-- **Multi-environment configs** - How do teams handle dev/staging/prod variable injection?
-- **Security policies** - What CF security groups, org/space quotas look like in practice
-- **Buildpack configurations** - Custom buildpack definitions and offline scenarios
-
-### Secondary Questions
-- Should we demonstrate BOSH release migration to OpenShift Operators?
-- How do we handle CF marketplace services → OpenShift Operator Hub mapping?
-- Do we need multi-environment promotion workflows (dev → staging → prod)?
+#### **5. Multi-App Demonstration**
+- [ ] **Multiple CF Apps**: Different application types and patterns
+- [ ] **Standards Consistency**: Same standards applied across all migrations
+- [ ] **Portfolio Migration**: Demonstrate enterprise-scale capability
 
 ---
 
 ## Success Criteria
 
-**Technical**: 
-- Working CF → OpenShift migration pipeline for Spring Petclinic
-- Generated Helm charts deploy successfully to OKD cluster
-- Automated standards validation prevents policy violations
+**Phase 1-3 (Core Demo)**:
+- ✅ CF → OpenShift migration workflow for Spring Petclinic
+- ✅ Generated Helm charts deploy successfully to Kind cluster
+- [ ] Automated standards validation prevents policy violations
+- [ ] Live demo shows CF config → Running OpenShift app in <5 minutes
+
+**Phase 4-5 (Expansion)**:
+- [ ] Standards framework works across multiple application types
+- [ ] Devin integration demonstrates enterprise-scale policy application
+- [ ] Portfolio-level migration capability demonstrated
 
 ### Important Docs
 CF vs TAS vs Korifi vs OpenShift

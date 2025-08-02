@@ -31,14 +31,34 @@
 - Developer workflow disruption
 - **Key Point**: Manual migration is error-prone and inconsistent
 
-## Part 3: Windsurf-Guided Migration
+## Part 3: Cascade-Powered Migration
 
-### Windsurf Rules/Workflows Demo
-- **[Windsurf-specific content - user will handle]**
-- Show automated analysis of CF manifest
-- Generate OpenShift resources with guided workflows
-- Error prevention through rules engine
-- Consistent, repeatable migration process
+### Live Generation Demo
+**Source Artifacts**: 
+- `cf-korifi/petclinic-app.json` (Korifi format)
+- `cf-traditional/manifest.yml` (Traditional CF format)
+
+**Migration Process**:
+1. **Analyze CF Configuration**
+   - Extract app name, memory, instances, buildpack, routes, env vars
+   - Map CF concepts → Kubernetes equivalents
+
+2. **Generate OpenShift Deployment** 
+   - Cascade creates complete Helm chart in `migration-target/charts/petclinic/`
+   - Auto-generates: Chart.yaml, values.yaml, templates/
+   - Applies enterprise standards: resource limits, health checks, security
+
+3. **Deploy to OpenShift**
+   ```bash
+   helm install petclinic ./migration-target/charts/petclinic
+   kubectl get pods,svc,ingress
+   ```
+
+**Key Demo Points**:
+- **Automation over manual work** - No YAML writing
+- **CF knowledge → K8s deployment** - Bridge the gap  
+- **Enterprise standards applied** - Resource limits, health checks
+- **Minutes not hours** - Instant migration
 
 ## Part 4: OpenShift Deployment
 
