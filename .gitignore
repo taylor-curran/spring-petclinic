@@ -49,6 +49,19 @@ out/
 _site/
 *.css
 
+### Large Binary Files ###
+# Installer packages and archives
+*.pkg
+*.tar.xz
+*.tar.gz
+*.zip
+*.dmg
+*.iso
+
+# CRC/OpenShift installer artifacts
+archive/crc-attempt/*.pkg
+archive/crc-attempt/*.tar.xz
+
 ### CF Build Artifacts ###
 *.zip
 !petclinic.css
