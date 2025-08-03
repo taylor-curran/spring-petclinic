@@ -66,3 +66,6 @@ archive/crc-attempt/*.tar.xz
 *.zip
 !petclinic.css
 **pull-secret.txt
+
+### Node / JavaScript ###
+node_modules/
